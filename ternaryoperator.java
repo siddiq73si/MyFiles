@@ -1,3 +1,5 @@
+//Example program of Ternary Operator
+
 class Example
 {	
 	public static void main(String args[])
