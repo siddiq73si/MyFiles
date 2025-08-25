@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#242424" />
+  <title>Friendsy Snake ☕</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+  <meta name="description" content="A cozy, coffeehouse-themed Snake game with obstacles, power-ups, and PWA offline support." />
+  <style>
+    @font-face {
+      font-family: 'CafeMono';
+      src: local('Courier New'), local('Consolas');
+    }
+    body {
+      margin: 0;
+      background: #1f1f1f;
+      color: #f1f1f1;
+      font-family: CafeMono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+    header, footer{
+      background: #242424;
+      border-bottom: 1px solid #333;
+      border-top: 1px solid #333;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+    .wrap {
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+    canvas {
+      background: repeating-linear-gradient(0deg, #2a2a2a 0 24px, #2c2c2c 24px 48px);
+      border: 2px solid #555;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      image-rendering: pixelated;
+    }
+    .hud {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      background: #333;
+      border: 1px solid #444;
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: #eee;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform .08s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .pill { background: #3a3a3a; padding: 6px 10px; border-radius: 999px; border: 1px solid #4a4a4a;}
+    .bad { color: #ff6b6b; } .good { color: #7bffb1; } .warn { color: #ffd36b;}
+    .legend { font-size: .85rem; opacity: .8;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Friendsy Snake ☕</h1>
+  <div class="hud">
+    <div id="score" class="pill">Score: 0</div>
+    <div id="speed" class="pill">Speed: 8</div>
+    <div id="status" class="pill">Ready</div>
+    <button id="musicBtn" class="btn" aria-pressed="true">Music: On</button>
+    <button id="pauseBtn" class="btn">Pause</button>
+    <button id="restartBtn" class="btn">Restart</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <canvas id="game" width="640" height="640" aria-label="Snake game board" role="img"></canvas>
+  <div class="legend" style="margin-top:12px;">
+    Arrow Keys / WASD to move • Eat <span class="good">food</span> to grow • Avoid <span class="bad">obstacles</span> •
+    Grab <span class="warn">power-ups</span> for speed boost / shield / 2x score • Installable PWA & Offline-ready.
+  </div>
+</div>
+
+<footer>
+  <div>Theme: cozy coffeehouse vibe — not affiliated with any show or brand.</div>
+  <div id="pwaStatus"></div>
+</footer>
+
+<audio id="bgm" src="assets/audio/bgm.wav" loop></audio>
+<audio id="sfxEat" src="assets/audio/eat.wav"></audio>
+<audio id="sfxPower" src="assets/audio/power.wav"></audio>
+<audio id="sfxCrash" src="assets/audio/crash.wav"></audio>
+
+<script src="app.js" defer></script>
+</body>
+</html>
